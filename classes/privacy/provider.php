@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy provider implementation for webservice_rest.
+ * Privacy provider implementation for webservice_raw.
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2018 Mihail Geshoski <mihail@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace webservice_rest\privacy;
+namespace webservice_raw\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Privacy provider implementation for webservice_rest.
+ * Privacy provider implementation for webservice_raw.
  *
  * @copyright  2018 Mihail Geshoski <mihail@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

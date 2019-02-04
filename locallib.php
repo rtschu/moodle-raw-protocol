@@ -18,7 +18,7 @@
 /**
  * REST web service implementation classes and methods.
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2009 Jerome Mouneyrac
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,24 +28,24 @@ require_once("$CFG->dirroot/webservice/lib.php");
 /**
  * REST service server implementation.
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2009 Petr Skoda (skodak)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class webservice_raw_server extends webservice_base_server {
 
     /** @var string return method ('xml' or 'json') */
-    protected $restformat;
+    protected $rawformat;
 
     /**
      * Contructor
      *
      * @param string $authmethod authentication method of the web service (WEBSERVICE_AUTHMETHOD_PERMANENT_TOKEN, ...)
-     * @param string $restformat Format of the return values: 'xml' or 'json'
+     * @param string $rawformat Format of the return values: 'xml' or 'json'
      */
     public function __construct($authmethod) {
         parent::__construct($authmethod);
-        $this->wsname = 'rest';
+        $this->wsname = 'raw';
     }
 
     /**
@@ -55,7 +55,7 @@ class webservice_raw_server extends webservice_base_server {
      *  2/ function name (wsfunction parameter)
      *  3/ function parameters (all other parameters except those above)
      *  4/ text format parameters
-     *  5/ return rest format xml/json
+     *  5/ return raw format xml/json
      */
     protected function parse_request() {
 
@@ -66,10 +66,10 @@ class webservice_raw_server extends webservice_base_server {
         $methodvariables = array_merge($_GET, $_POST);
 
         // Retrieve REST format parameter - 'xml' (default) or 'json'. or NEW raw
-        $restformatisset = isset($methodvariables['moodlewsrestformat'])
-                && (($methodvariables['moodlewsrestformat'] == 'xml' || $methodvariables['moodlewsrestformat'] == 'json' || $methodvariables['moodlewsrestformat'] == 'raw'));
-        $this->restformat = $restformatisset ? $methodvariables['moodlewsrestformat'] : 'xml';
-        unset($methodvariables['moodlewsrestformat']);
+        $rawformatisset = isset($methodvariables['moodlewsrawformat'])
+                && (($methodvariables['moodlewsrawformat'] == 'xml' || $methodvariables['moodlewsrawformat'] == 'json' || $methodvariables['moodlewsrawformat'] == 'raw'));
+        $this->rawformat = $rawformatisset ? $methodvariables['moodlewsrawformat'] : 'xml';
+        unset($methodvariables['moodlewsrawformat']);
 
         if ($this->authmethod == WEBSERVICE_AUTHMETHOD_USERNAME) {
             $this->username = isset($methodvariables['wsusername']) ? $methodvariables['wsusername'] : null;
@@ -114,10 +114,10 @@ class webservice_raw_server extends webservice_base_server {
         if (!empty($exception)) {
             $response =  $this->generate_error($exception);
         } else {
-            if($this->restformat == 'raw') {
+            if($this->rawformat == 'raw') {
                 $response = $validatedvalues;
             }else{
-                echo "ERROR, only restformat = raw is allowed";
+                echo "ERROR, only rawformat = raw is allowed";
             }
         }
 
@@ -139,11 +139,11 @@ class webservice_raw_server extends webservice_base_server {
 
     /**
      * Build the error information matching the REST returned value format (JSON or XML)
-     * @param exception $ex the exception we are converting in the server rest format
+     * @param exception $ex the exception we are converting in the server raw format
      * @return string the error in the requested REST format
      */
     protected function generate_error($ex) {
-        if ($this->restformat == 'json') {
+        if ($this->rawformat == 'json') {
             $errorobject = new stdClass;
             $errorobject->exception = get_class($ex);
             $errorobject->errorcode = $ex->errorcode;
@@ -170,7 +170,7 @@ class webservice_raw_server extends webservice_base_server {
      * Internal implementation - sending of page headers.
      */
     protected function send_headers() {
-        if ($this->restformat == 'json') {
+        if ($this->rawformat == 'json') {
             header('Content-type: application/json');
         } else {
             header('Content-Type: application/xml; charset=utf-8');
@@ -233,7 +233,7 @@ class webservice_raw_server extends webservice_base_server {
 /**
  * REST test client class
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2009 Petr Skoda (skodak)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

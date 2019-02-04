@@ -18,7 +18,7 @@
 /**
  * Version details
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2009 Jerome Mouneyrac
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

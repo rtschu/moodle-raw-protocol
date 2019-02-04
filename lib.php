@@ -18,7 +18,7 @@
 /**
  * Moodle REST library
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2009 Jerome Mouneyrac
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@
  *
  * It has been implemented for unit testing purpose (all protocols have similar client)
  *
- * @package    webservice_rest
+ * @package    webservice_raw
  * @copyright  2010 Jerome Mouneyrac
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -77,8 +77,8 @@ class webservice_raw_client {
         global $DB, $CFG;
 
          if ($this->format == 'raw') {
-             $formatparam = '&moodlewsrestformat=raw';
-             $this->serverurl->param('moodlewsrestformat','raw');
+             $formatparam = '&moodlewsrawformat=raw';
+             $this->serverurl->param('moodlewsrawformat','raw');
          } else {
              $formatparam = ''; //to keep retro compability with old server that only support xml (they don't expect this param)
          }

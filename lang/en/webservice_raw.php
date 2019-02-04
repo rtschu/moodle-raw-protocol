@@ -26,4 +26,4 @@
 
 $string['pluginname'] = 'RAW protocol';
 $string['privacy:metadata'] = 'The RAW protocol plugin does not store any personal data.';
-$string['rest:use'] = 'Use RAW protocol';
+$string['raw:use'] = 'Use RAW protocol';
